@@ -1,70 +1,114 @@
+import {
+  EyeInvisibleOutlined,
+  EyeOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
+import { Button, Form, Input, Typography } from "antd"; // Import Form from antd
+import { Formik } from "formik";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import * as Yup from "yup";
+import "../App.css";
+import { loginSuccess } from "../redux/authSlice";
 
-interface LoginPageProps {
-  handleAuth: (isLoggedIn: boolean) => void;
+interface Props {
+  handleAuth?: (isLoggedIn: boolean) => void;
 }
 
-function LoginPage({ handleAuth }: any) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+function LoginPage({ handleAuth }: Props) {
+  const [passwordVisible, setPasswordVisible] = useState(false); // State to manage password visibility
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const handleLogin = () => {
-    // Perform authentication logic here...
-    // For simplicity, always redirect to the home page
-    if (email !== "" && password !== "") {
-      handleAuth && handleAuth(true); // Set isLoggedIn to true on successful login
+  const handleLogin = (values: { email: string; password: string }) => {
+    if (values.email != "" && values.password != "") {
+      // dispatch(loginSuccess());
+      dispatch(
+        loginSuccess({ email: values.email, password: values.password })
+      );
+      console.log("Logging in...");
+      handleAuth && handleAuth(true);
       navigate("/home");
     }
+    //  else {
+    //   dispatch(loginFailure("Invalid credentials"));
+    // }
   };
 
   return (
-    <div className="flex h-screen justify-center items-center bg-gray-100">
-      <div className="bg-white p-8 rounded shadow-md w-80">
-        <h2 className="text-2xl font-bold mb-4">Login Page</h2>
-        <form>
-          <div className="mb-4">
-            <label
-              htmlFor="email"
-              className="block text-gray-700 font-semibold mb-2"
+    <div className="appBg">
+      <Formik
+        initialValues={{ email: "", password: "" }}
+        validationSchema={Yup.object().shape({
+          email: Yup.string()
+            .email("Invalid email")
+            .required("Email is required")
+            .matches(
+              /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+              "Invalid email format"
+            ),
+          password: Yup.string().required("Password is required"),
+        })}
+        onSubmit={handleLogin}
+      >
+        {(
+          { values, handleChange, errors, touched, handleSubmit } // Destructure handleSubmit
+        ) => (
+          <Form className="formstyle" onFinish={handleSubmit}>
+            {" "}
+            {/* Use onFinish from antd Form */}
+            <div className="logo">
+              {/* # symbol in full yellow color */}
+              <Typography.Title level={1} style={{ position: "relative" }}>
+                SuaLogo
+                <span
+                  style={{
+                    color: "yellow",
+                    fontSize: "80px",
+                    position: "absolute",
+                    top: "-23px",
+                  }}
+                >
+                  #
+                </span>
+              </Typography.Title>
+            </div>
+            <Form.Item
+              name="email"
+              validateStatus={errors.email && touched.email ? "error" : ""}
+              help={touched.email && errors.email}
             >
-              Email
-            </label>
-            <input
-              type="email"
-              id="email"
-              placeholder="Enter your email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
-            />
-          </div>
-          <div className="mb-4">
-            <label
-              htmlFor="password"
-              className="block text-gray-700 font-semibold mb-2"
+              <Input
+                suffix={<UserOutlined />}
+                placeholder="Enter your email"
+                value={values.email}
+                onChange={handleChange}
+              />
+            </Form.Item>
+            <Form.Item
+              name="password"
+              validateStatus={
+                errors.password && touched.password ? "error" : ""
+              }
+              help={touched.password && errors.password}
             >
-              Password
-            </label>
-            <input
-              type="password"
-              id="password"
-              placeholder="Enter your password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
-            />
-          </div>
-          <button
-            type="button"
-            onClick={handleLogin}
-            className="w-full bg-blue-500 text-white font-semibold px-4 py-2 rounded-md hover:bg-blue-600"
-          >
-            Login
-          </button>
-        </form>
-      </div>
+              <Input.Password
+                placeholder="Enter your password"
+                type={passwordVisible ? "text" : "password"}
+                iconRender={(visible) =>
+                  visible ? <EyeOutlined /> : <EyeInvisibleOutlined />
+                }
+                value={values.password}
+                onChange={handleChange}
+              />
+            </Form.Item>
+            <Button type="primary" htmlType="submit">
+              LOGIN
+            </Button>
+          </Form>
+        )}
+      </Formik>
     </div>
   );
 }

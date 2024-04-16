@@ -37,51 +37,68 @@ const TodoList: React.FC<TodoListProps> = ({
     [onDeleteTodo]
   );
 
+  // Check if todos array is empty, render null if it is
+  if (todos.length === 0) {
+    return null;
+  }
+
   return (
     <div className="todos">
       {todos.map((todo, index) => (
-        <div key={index} className="todo flex w-1/4 my-3 justify-between">
-          {editIndex === index ? (
-            <input
-              type="text"
-              value={editText}
-              onChange={(e) => setEditText(e.target.value)}
-              autoFocus
-              onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  handleSaveEdit(index);
-                }
-              }}
-            />
-          ) : (
-            <div className="text" onClick={() => handleEdit(index, todo)}>
-              {todo}
-            </div>
-          )}
-          <div className="buttons">
+        <div
+          key={index}
+          className="todo-container"
+          style={{ boxShadow: "0 10px 5px rgba(0, 0, 0, 0.1)" }}
+        >
+          <div
+            className="todo flex w-1/4 my-3 justify-between"
+            style={{
+              width: "90%",
+              margin: "auto",
+            }}
+          >
             {editIndex === index ? (
-              <button
-                onClick={() => handleSaveEdit(index)}
-                className="bg-violet-800 hover:bg-violet-950 p-2 py-1 text-sm font-bold text-white rounded-md mx-1"
-              >
-                Save
-              </button>
+              <input
+                type="text"
+                value={editText}
+                onChange={(e) => setEditText(e.target.value)}
+                autoFocus
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    handleSaveEdit(index);
+                  }
+                }}
+              />
             ) : (
-              <>
-                <button
-                  onClick={() => handleEdit(index, todo)}
-                  className="bg-violet-800 hover:bg-violet-950 p-2 py-1 text-sm font-bold text-white rounded-md mx-1"
-                >
-                  Edit
-                </button>
-                <button
-                  onClick={() => handleDelete(index)}
-                  className="bg-violet-800 hover:bg-violet-950 p-2 py-1 text-sm font-bold text-white rounded-md mx-1"
-                >
-                  Delete
-                </button>
-              </>
+              <div className="text" onClick={() => handleEdit(index, todo)}>
+                {todo}
+              </div>
             )}
+            <div className="buttons">
+              {editIndex === index ? (
+                <button
+                  onClick={() => handleSaveEdit(index)}
+                  className="bg-violet-800 hover:bg-violet-950 p-2 py-1 text-sm font-bold text-white rounded-md mx-1"
+                >
+                  Save
+                </button>
+              ) : (
+                <>
+                  <button
+                    onClick={() => handleEdit(index, todo)}
+                    className="bg-violet-800 hover:bg-violet-950 p-2 py-1 text-sm font-bold text-white rounded-md mx-1"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    onClick={() => handleDelete(index)}
+                    className="bg-violet-800 hover:bg-violet-950 p-2 py-1 text-sm font-bold text-white rounded-md mx-1"
+                  >
+                    Delete
+                  </button>
+                </>
+              )}
+            </div>
           </div>
         </div>
       ))}

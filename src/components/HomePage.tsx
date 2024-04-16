@@ -32,13 +32,18 @@ function HomePage() {
   return (
     <>
       <Navbar />
-      <div className="mx-3 md:container md:mx-auto my-5 rounded-xl p-5 bg-violet-100 min-h-[80vh]">
+      <div className="mx-3 md:container md:mx-auto my-5 rounded-xl bg-white-100 ">
         <h1 className="font-bold text-center text-3xl">
           iTask - Manage your todos at one place
         </h1>
         <TodoForm onAddTodo={handleAddTodo} />
-        <div className="h-[1px] bg-black opacity-15 w-[90%] mx-auto my-2"></div>
-        <h2 className="text-2xl font-bold">Your Todos</h2>
+      </div>
+      <div className="spacing"></div>
+      <div className="mx-3 md:container md:mx-auto my-5 rounded-xl p-5 bg-white-100 min-h-[80vh]">
+        <h2 className="text-2xl font-bold" style={{ textAlign: "left" }}>
+          Your Todos
+        </h2>
+        <div className="lining"></div>
         <TodoList {...memoizedTodoListProps} />
       </div>
     </>

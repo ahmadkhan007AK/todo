@@ -28,8 +28,8 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="flex justify-between py-2">
-      <div className="logo">
+    <nav className="flex justify-between py-2" style={{ height: "45px" }}>
+      <div className="logo" style={{ height: "45px" }}>
         <span className="font-bold text-xl mx-8">TODO LIST</span>
       </div>
       <ul className="flex gap-8 mx-9">

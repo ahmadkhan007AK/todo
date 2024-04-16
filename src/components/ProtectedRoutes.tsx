@@ -15,5 +15,5 @@ const ProtectedRoutes = () => {
   // Render the protected routes if user is authenticated, otherwise render the login page
   return isLoggedIn ? <Outlet /> : <LoginPage handleAuth={setIsLoggedIn} />;
 };
- 
+
 export default ProtectedRoutes;

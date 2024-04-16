@@ -1,7 +1,8 @@
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+  /* max-width: 100%; */
+  /* margin: 0 auto;
+  padding: 2rem; */
+  
   text-align: center;
 }
 
@@ -39,4 +40,103 @@
 
 .read-the-docs {
   color: #888;
+}
+
+
+.appBg{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  background:url('./img/ant-design-login.jpg');
+  background-size: cover;
+   
+}
+.password-input{
+  margin-top: 10%;
+}
+
+.logo{
+   
+    padding : 0px;
+}
+
+.formstyle{
+  background-color: white;
+  height: 380px;
+  width: 300px;
+  border-radius: 25px;
+
+input{
+  width:80%;
+  border-radius:0px;
+  border-top: 2px;
+  border-left: 2px;
+  border-right: 2px;
+  
+}
+
+Button{
+  background-color: black;
+  width:75%;
+  color: white;
+  border-radius:40px;
+  margin-top: 25px;
+}
+
+.logo{
+  height: 135px;
+    padding-top: 40px;
+    padding-right: 50px;
+}
+
+:where(.css-dev-only-do-not-override-1kuana8).ant-input-affix-wrapper {
+  width: 80%;
+  border-radius:0px;
+  border-top: 2px;
+  border-left: 2px;
+  border-right: 2px;  
+}
+
+
+:where(.css-dev-only-do-not-override-1kuana8).ant-input-affix-wrapper .ant-input-suffix {
+  margin-inline-start: 30px;
+}
+.form-item{
+  margin-bottom: 24px;
+}
+
+
+
+}
+ 
+.flex {
+  display: flex;
+  justify-content: space-between;
+}
+
+.spacing{
+  height: 10px;
+  width: 100%;
+  background-color:#f3f3f3a1;
+}
+
+
+.todo-container{
+  background-color: #ffffff;
+    padding: 12px;
+    border-radius: 15px;
+    margin-bottom: 11px;
+}
+
+.todos{
+  background-color: rgb(255, 255, 255);
+    height: auto;
+}
+.lining{
+  width: 100%;
+    background-color: #f7f7f7;
+    height: 2px;
+    margin-bottom: 5px;
 }

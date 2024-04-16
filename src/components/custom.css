@@ -1,0 +1,10 @@
+
+.appBg{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    background:url('./img/ant-design-login.jpg');
+    background-size: cover;
+  }
